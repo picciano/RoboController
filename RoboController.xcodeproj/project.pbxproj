@@ -12,9 +12,12 @@
 		AF7010501E2AEE690031C0BC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF70104F1E2AEE690031C0BC /* ViewController.swift */; };
 		AF7010521E2AEE690031C0BC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF7010511E2AEE690031C0BC /* Assets.xcassets */; };
 		AF7010551E2AEE6A0031C0BC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF7010531E2AEE6A0031C0BC /* Main.storyboard */; };
+		D752B5021F5E1172A21BA8FC /* Pods_RoboController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7026A721AFD7B745046EB78D /* Pods_RoboController.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		49692667172160212C78C15B /* Pods-RoboController.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RoboController.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RoboController/Pods-RoboController.debug.xcconfig"; sourceTree = "<group>"; };
+		7026A721AFD7B745046EB78D /* Pods_RoboController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RoboController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF1207E11E2BE26E00635715 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
 		AF70104A1E2AEE690031C0BC /* RoboController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RoboController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF70104D1E2AEE690031C0BC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -22,6 +25,7 @@
 		AF7010511E2AEE690031C0BC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AF7010541E2AEE6A0031C0BC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AF7010561E2AEE6A0031C0BC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D33C85D7A71089EA1B3015C7 /* Pods-RoboController.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RoboController.release.xcconfig"; path = "Pods/Target Support Files/Pods-RoboController/Pods-RoboController.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,18 +33,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D752B5021F5E1172A21BA8FC /* Pods_RoboController.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A085BC0AD0F51E3E4043E1AC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7026A721AFD7B745046EB78D /* Pods_RoboController.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		AF7010411E2AEE690031C0BC = {
 			isa = PBXGroup;
 			children = (
 				AF1207E11E2BE26E00635715 /* Podfile */,
 				AF70104C1E2AEE690031C0BC /* RoboController */,
 				AF70104B1E2AEE690031C0BC /* Products */,
+				EFFAF2282ABD11D5E102E152 /* Pods */,
+				A085BC0AD0F51E3E4043E1AC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,6 +79,15 @@
 			path = RoboController;
 			sourceTree = "<group>";
 		};
+		EFFAF2282ABD11D5E102E152 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				49692667172160212C78C15B /* Pods-RoboController.debug.xcconfig */,
+				D33C85D7A71089EA1B3015C7 /* Pods-RoboController.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -71,9 +95,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AF7010591E2AEE6A0031C0BC /* Build configuration list for PBXNativeTarget "RoboController" */;
 			buildPhases = (
+				52CEFB5051C8370F6F0B821C /* [CP] Check Pods Manifest.lock */,
 				AF7010461E2AEE690031C0BC /* Sources */,
 				AF7010471E2AEE690031C0BC /* Frameworks */,
 				AF7010481E2AEE690031C0BC /* Resources */,
+				50EB06E865D2B2C5D39EF8A7 /* [CP] Embed Pods Frameworks */,
+				B4C6C86E7F747DE57D82EF85 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -131,6 +158,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		50EB06E865D2B2C5D39EF8A7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RoboController/Pods-RoboController-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		52CEFB5051C8370F6F0B821C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		B4C6C86E7F747DE57D82EF85 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RoboController/Pods-RoboController-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		AF7010461E2AEE690031C0BC /* Sources */ = {
@@ -248,6 +323,7 @@
 		};
 		AF70105A1E2AEE6A0031C0BC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 49692667172160212C78C15B /* Pods-RoboController.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -262,6 +338,7 @@
 		};
 		AF70105B1E2AEE6A0031C0BC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D33C85D7A71089EA1B3015C7 /* Pods-RoboController.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
