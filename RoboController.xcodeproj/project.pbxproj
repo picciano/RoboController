@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		AF1207E21E2BE26E00635715 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = AF1207E11E2BE26E00635715 /* Podfile */; };
 		AF1207E41E2BEC5200635715 /* SerialConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1207E31E2BEC5200635715 /* SerialConnection.swift */; };
+		AF4D245C1E2C2A3800266375 /* RoboController.pcvd in Resources */ = {isa = PBXBuildFile; fileRef = AF4D245A1E2C2A3800266375 /* RoboController.pcvd */; };
+		AF4D245D1E2C2A3800266375 /* RoboControllerStyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4D245B1E2C2A3800266375 /* RoboControllerStyleKit.swift */; };
+		AF4D245F1E2C2A9900266375 /* ButtonIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4D245E1E2C2A9900266375 /* ButtonIndicator.swift */; };
 		AF70104E1E2AEE690031C0BC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF70104D1E2AEE690031C0BC /* AppDelegate.swift */; };
 		AF7010501E2AEE690031C0BC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF70104F1E2AEE690031C0BC /* ViewController.swift */; };
 		AF7010521E2AEE690031C0BC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF7010511E2AEE690031C0BC /* Assets.xcassets */; };
@@ -21,6 +24,9 @@
 		7026A721AFD7B745046EB78D /* Pods_RoboController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RoboController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF1207E11E2BE26E00635715 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
 		AF1207E31E2BEC5200635715 /* SerialConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SerialConnection.swift; sourceTree = "<group>"; };
+		AF4D245A1E2C2A3800266375 /* RoboController.pcvd */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = RoboController.pcvd; sourceTree = "<group>"; };
+		AF4D245B1E2C2A3800266375 /* RoboControllerStyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoboControllerStyleKit.swift; sourceTree = "<group>"; };
+		AF4D245E1E2C2A9900266375 /* ButtonIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonIndicator.swift; sourceTree = "<group>"; };
 		AF70104A1E2AEE690031C0BC /* RoboController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RoboController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF70104D1E2AEE690031C0BC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AF70104F1E2AEE690031C0BC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -50,6 +56,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		AF4D24591E2C2A1A00266375 /* PaintCode */ = {
+			isa = PBXGroup;
+			children = (
+				AF4D245A1E2C2A3800266375 /* RoboController.pcvd */,
+				AF4D245B1E2C2A3800266375 /* RoboControllerStyleKit.swift */,
+			);
+			name = PaintCode;
+			sourceTree = "<group>";
+		};
 		AF7010411E2AEE690031C0BC = {
 			isa = PBXGroup;
 			children = (
@@ -75,9 +90,11 @@
 				AF70104D1E2AEE690031C0BC /* AppDelegate.swift */,
 				AF1207E31E2BEC5200635715 /* SerialConnection.swift */,
 				AF70104F1E2AEE690031C0BC /* ViewController.swift */,
+				AF4D245E1E2C2A9900266375 /* ButtonIndicator.swift */,
 				AF7010511E2AEE690031C0BC /* Assets.xcassets */,
 				AF7010531E2AEE6A0031C0BC /* Main.storyboard */,
 				AF7010561E2AEE6A0031C0BC /* Info.plist */,
+				AF4D24591E2C2A1A00266375 /* PaintCode */,
 			);
 			path = RoboController;
 			sourceTree = "<group>";
@@ -154,6 +171,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF4D245C1E2C2A3800266375 /* RoboController.pcvd in Resources */,
 				AF1207E21E2BE26E00635715 /* Podfile in Resources */,
 				AF7010521E2AEE690031C0BC /* Assets.xcassets in Resources */,
 				AF7010551E2AEE6A0031C0BC /* Main.storyboard in Resources */,
@@ -217,7 +235,9 @@
 			files = (
 				AF7010501E2AEE690031C0BC /* ViewController.swift in Sources */,
 				AF70104E1E2AEE690031C0BC /* AppDelegate.swift in Sources */,
+				AF4D245D1E2C2A3800266375 /* RoboControllerStyleKit.swift in Sources */,
 				AF1207E41E2BEC5200635715 /* SerialConnection.swift in Sources */,
+				AF4D245F1E2C2A9900266375 /* ButtonIndicator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -333,7 +353,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = PC5SP4V242;
 				INFOPLIST_FILE = RoboController/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.picciano.RoboController;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
@@ -348,7 +368,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = PC5SP4V242;
 				INFOPLIST_FILE = RoboController/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.picciano.RoboController;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;

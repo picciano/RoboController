@@ -9,6 +9,9 @@
 import Foundation
 import ORSSerial
 
+let SerialConnectionDidConnect = NSNotification.Name("SerialConnectionDidConnect")
+let SerialConnectionDidDisconnect = NSNotification.Name("SerialConnectionDidDisconnect")
+
 class SerialConnection {
     
     static let shared = SerialConnection()
@@ -16,12 +19,20 @@ class SerialConnection {
     var selectedPort: ORSSerialPort? {
         willSet {
             selectedPort?.close()
+            NotificationCenter.default.post(name: SerialConnectionDidDisconnect, object: self)
         }
         didSet {
-            debugPrint("Serial port is now \(selectedPort?.path)")
-            
-            selectedPort?.baudRate = 9600
-            selectedPort?.open()
+            if let selectedPort = selectedPort {
+                selectedPort.baudRate = 9600
+                
+                DispatchQueue.global(qos: .userInitiated).async {
+                    selectedPort.open()
+                    
+                    DispatchQueue.main.async(execute: { () -> Void in
+                        NotificationCenter.default.post(name: SerialConnectionDidConnect, object: self)
+                    })
+                }
+            }
         }
     }
     

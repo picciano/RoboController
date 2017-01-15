@@ -15,7 +15,11 @@ class ViewController: NSViewController {
     @IBOutlet weak var rightThrustLabel: NSTextField!
     @IBOutlet weak var leftThrustSlider: NSSlider!
     @IBOutlet weak var rightThrustSlider: NSSlider!
-    @IBOutlet weak var aButton: NSButton!
+    @IBOutlet weak var aButton: ButtonIndicator!
+    @IBOutlet weak var bButton: ButtonIndicator!
+    @IBOutlet weak var xButton: ButtonIndicator!
+    @IBOutlet weak var yButton: ButtonIndicator!
+    @IBOutlet weak var serialConnectionWarningLabel: NSTextField!
     
     var connectedGameController: GCController?
 
@@ -25,6 +29,8 @@ class ViewController: NSViewController {
         // Do any additional setup after loading the view.
         NotificationCenter.default.addObserver(self, selector: #selector(foundConnector(notification:)), name: NSNotification.Name.GCControllerDidConnect, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(lostConnector(notification:)), name: NSNotification.Name.GCControllerDidDisconnect, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(hideWarning(notification:)), name: SerialConnectionDidConnect, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showWarning(notification:)), name: SerialConnectionDidDisconnect, object: nil)
     }
 
     override var representedObject: Any? {
@@ -56,11 +62,37 @@ class ViewController: NSViewController {
             }
             
             profile.buttonA.pressedChangedHandler = { (button, value, pressed) in
-                self.aButton.state = pressed ? NSOnState : NSOffState
+                self.aButton.on = pressed
                 
                 if pressed {
-                    debugPrint("Play small world.")
-                    let result = SerialConnection.shared.send(message: "sw\n")
+                    if !SerialConnection.shared.send(message: "sw\n") {
+                        self.showWarning()
+                    }
+                }
+            }
+            
+            profile.buttonB.pressedChangedHandler = { (button, value, pressed) in
+                self.bButton.on = pressed
+                
+                if pressed {}
+            }
+            
+            profile.buttonX.pressedChangedHandler = { (button, value, pressed) in
+                self.xButton.on = pressed
+                
+                if pressed {}
+            }
+            
+            profile.buttonY.pressedChangedHandler = { (button, value, pressed) in
+                self.yButton.on = pressed
+                
+                if pressed {}
+            }
+            
+            profile.leftTrigger.pressedChangedHandler = { (button, value, pressed) in
+                if pressed {
+                    debugPrint("Brakes")
+                    let result = SerialConnection.shared.send(message: "stop\n")
                     debugPrint(result ? "Message sent." : "Send failed.")
                 }
             }
@@ -77,6 +109,18 @@ class ViewController: NSViewController {
     
     func lostConnector(notification: Notification) {
         debugPrint("Lost controller.")
+    }
+    
+    func hideWarning(notification: Notification) {
+        serialConnectionWarningLabel.isHidden = true
+    }
+    
+    func showWarning(notification: Notification) {
+        serialConnectionWarningLabel.isHidden = false
+    }
+    
+    func showWarning() {
+        
     }
 
 }

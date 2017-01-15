@@ -679,10 +679,12 @@
             <objects>
                 <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
                     <window key="window" title="RoboController" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
-                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="480" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+                        <value key="minSize" type="size" width="480" height="270"/>
+                        <value key="maxSize" type="size" width="480" height="270"/>
                     </window>
                     <connections>
                         <segue destination="XfG-lQ-9wD" kind="relationship" relationship="window.shadowedContentViewController" id="cq2-FE-JQM"/>
@@ -727,14 +729,6 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MvT-cs-dpn">
-                                <rect key="frame" x="368" y="45" width="31" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="radio" title="A" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="8TT-5I-GnM">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                            </button>
                             <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q3R-Pz-mWx">
                                 <rect key="frame" x="255" y="14" width="24" height="240"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -745,14 +739,55 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <sliderCell key="cell" enabled="NO" alignment="left" minValue="-255" maxValue="255" tickMarkPosition="right" numberOfTickMarks="21" sliderType="linear" id="QKg-MH-CJT"/>
                             </slider>
+                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dCJ-vb-clN" customClass="ButtonIndicator" customModule="RoboController" customModuleProvider="target">
+                                <rect key="frame" x="356" y="43" width="40" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="A"/>
+                                </userDefinedRuntimeAttributes>
+                            </customView>
+                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QI0-65-7Zd" customClass="ButtonIndicator" customModule="RoboController" customModuleProvider="target">
+                                <rect key="frame" x="400" y="85" width="40" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="B"/>
+                                </userDefinedRuntimeAttributes>
+                            </customView>
+                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ba5-iU-qSG" customClass="ButtonIndicator" customModule="RoboController" customModuleProvider="target">
+                                <rect key="frame" x="356" y="130" width="40" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="Y"/>
+                                </userDefinedRuntimeAttributes>
+                            </customView>
+                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UKe-B9-E2V" customClass="ButtonIndicator" customModule="RoboController" customModuleProvider="target">
+                                <rect key="frame" x="307" y="85" width="40" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="labelText" value="X"/>
+                                </userDefinedRuntimeAttributes>
+                            </customView>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IEm-Pt-5aH">
+                                <rect key="frame" x="364" y="7" width="112" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="No serial connection." id="b3J-HM-zml">
+                                    <font key="font" metaFont="system" size="10"/>
+                                    <color key="textColor" red="0.98594671489999997" green="0.0" blue="0.039444990460000003" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                     </view>
                     <connections>
-                        <outlet property="aButton" destination="MvT-cs-dpn" id="RQ1-DU-bQy"/>
+                        <outlet property="aButton" destination="dCJ-vb-clN" id="UCE-Bt-Obf"/>
+                        <outlet property="bButton" destination="QI0-65-7Zd" id="WDe-vG-LlG"/>
                         <outlet property="leftThrustLabel" destination="Bhs-2R-KEQ" id="Ytk-jU-wEe"/>
                         <outlet property="leftThrustSlider" destination="rdI-ZQ-3W0" id="T8z-QA-Urx"/>
                         <outlet property="rightThrustLabel" destination="rQA-84-kRa" id="yCs-H1-qXh"/>
                         <outlet property="rightThrustSlider" destination="Q3R-Pz-mWx" id="EiM-pN-zTj"/>
+                        <outlet property="serialConnectionWarningLabel" destination="IEm-Pt-5aH" id="9eS-rJ-RE7"/>
+                        <outlet property="xButton" destination="UKe-B9-E2V" id="ZFs-KZ-VNl"/>
+                        <outlet property="yButton" destination="ba5-iU-qSG" id="oou-7M-rnI"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
