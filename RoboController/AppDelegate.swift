@@ -7,11 +7,19 @@
 //
 
 import Cocoa
+import GameController
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
 
+    @IBAction func connectToControllerAction(_ sender: Any) {
+        debugPrint("Connecting to Controller...")
+        
+        GCController.startWirelessControllerDiscovery {
+            debugPrint("Stopped looking for controllers.")
+        }
+    }
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
