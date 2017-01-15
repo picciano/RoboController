@@ -60,12 +60,16 @@ class ViewController: NSViewController {
                 
                 if pressed {
                     debugPrint("Play small world.")
+                    let result = SerialConnection.shared.send(message: "sw\n")
+                    debugPrint(result ? "Message sent." : "Send failed.")
                 }
             }
             
             profile.rightTrigger.pressedChangedHandler = { (button, value, pressed) in
                 if pressed {
                     debugPrint("Firestick activated!!!")
+                    let result = SerialConnection.shared.send(message: "move 1\n")
+                    debugPrint(result ? "Message sent." : "Send failed.")
                 }
             }
         }
