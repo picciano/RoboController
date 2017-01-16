@@ -22,6 +22,9 @@ class ViewController: NSViewController {
     @IBOutlet weak var serialConnectionWarningLabel: NSTextField!
     
     var connectedGameController: GCController?
+    var motorValuesChanged = false
+    var skippedLastTimerEvent = false
+    var timer: Timer?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,8 +32,8 @@ class ViewController: NSViewController {
         // Do any additional setup after loading the view.
         NotificationCenter.default.addObserver(self, selector: #selector(foundConnector(notification:)), name: NSNotification.Name.GCControllerDidConnect, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(lostConnector(notification:)), name: NSNotification.Name.GCControllerDidDisconnect, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(hideWarning(notification:)), name: SerialConnectionDidConnect, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(showWarning(notification:)), name: SerialConnectionDidDisconnect, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didConnectHandler(notification:)), name: SerialConnectionDidConnect, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didDisconnectHandler(notification:)), name: SerialConnectionDidDisconnect, object: nil)
     }
 
     override var representedObject: Any? {
@@ -49,16 +52,29 @@ class ViewController: NSViewController {
         }
         
         if let profile = connectedGameController?.extendedGamepad {
+            
             profile.leftThumbstick.yAxis.valueChangedHandler = { (axis, value) in
                 let value = Int(axis.value * 255.0)
                 self.leftThrustLabel.stringValue = "\(value)"
                 self.leftThrustSlider.intValue = Int32(value)
+                
+                self.motorValuesChanged = true
+                
+                if self.skippedLastTimerEvent || value == 0 {
+                    self.sendMotorSpeed()
+                }
             }
             
             profile.rightThumbstick.yAxis.valueChangedHandler = { (axis, value) in
                 let value = Int(axis.value * 255.0)
                 self.rightThrustLabel.stringValue = "\(-value)"
                 self.rightThrustSlider.intValue = Int32(value)
+                
+                self.motorValuesChanged = true
+                
+                if self.skippedLastTimerEvent || value == 0 {
+                    self.sendMotorSpeed()
+                }
             }
             
             profile.buttonA.pressedChangedHandler = { (button, value, pressed) in
@@ -107,16 +123,46 @@ class ViewController: NSViewController {
         }
     }
     
+    func sendMotorSpeed() {
+        guard SerialConnection.shared.isConnected else {
+            return
+        }
+        
+        guard motorValuesChanged else {
+            skippedLastTimerEvent = true
+            return
+        }
+        
+        skippedLastTimerEvent = false
+        
+        if let profile = connectedGameController?.extendedGamepad {
+            let leftValue = Int(profile.leftThumbstick.yAxis.value * 255.0)
+            let rightValue = Int(profile.rightThumbstick.yAxis.value * 255.0)
+            
+            motorValuesChanged = false
+            
+            if !SerialConnection.shared.send(message: "M\(leftValue) \(rightValue)") {
+                self.showWarning()
+            }
+        }
+    }
+    
     func lostConnector(notification: Notification) {
         debugPrint("Lost controller.")
     }
     
-    func hideWarning(notification: Notification) {
+    func didConnectHandler(notification: Notification) {
         serialConnectionWarningLabel.isHidden = true
+        
+        timer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { timer in
+            self.sendMotorSpeed()
+        }
     }
     
-    func showWarning(notification: Notification) {
+    func didDisconnectHandler(notification: Notification) {
         serialConnectionWarningLabel.isHidden = false
+        
+        timer?.invalidate()
     }
     
     func showWarning() {

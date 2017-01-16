@@ -97,6 +97,11 @@
                                                 <action selector="connectToControllerAction:" target="Voe-Tx-rLC" id="j0Y-Do-FyS"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Scan for Serial Ports" keyEquivalent="2" id="3w1-V4-P7B">
+                                            <connections>
+                                                <action selector="scanForSerialPortsAction:" target="Voe-Tx-rLC" id="rLK-W2-gTI"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="m54-Is-iLE"/>
                                         <menuItem title="Close" keyEquivalent="w" id="DVo-aG-piG">
                                             <connections>

@@ -10,6 +10,8 @@ import Cocoa
 import GameController
 import ORSSerial
 
+let SelectedPortPathKey = "SelectedPortPath"
+
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     
@@ -21,6 +23,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         GCController.startWirelessControllerDiscovery {
             debugPrint("Stopped looking for controllers.")
         }
+    }
+    
+    @IBAction func scanForSerialPortsAction(_ sender: Any) {
+        listSerialPorts()
     }
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
@@ -35,12 +41,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let ports = ORSSerialPortManager.shared().availablePorts
         let connectToPortItem = NSApplication.shared().mainMenu?.item(withTitle: "File")?.submenu?.item(withTitle: "Connect to Port")?.submenu
         portMenuItems.removeAll()
+        connectToPortItem?.removeAllItems()
+        
+        let selectedPortPath = UserDefaults.standard.value(forKey: SelectedPortPathKey) as? String
         
         for port in ports {
             let newItem = NSMenuItem(title: port.name, action: #selector(selectPort), keyEquivalent: "")
             newItem.representedObject = port
             portMenuItems.append(newItem)
             connectToPortItem?.addItem(newItem)
+            
+            if port.path == selectedPortPath {
+                selectPort(menuItem: newItem)
+            }
         }
     }
     
@@ -49,7 +62,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             menuItem.state = NSOffState
         }
         menuItem.state = NSOnState
-        SerialConnection.shared.selectedPort = menuItem.representedObject as? ORSSerialPort
+        
+        let selectedPort = menuItem.representedObject as? ORSSerialPort
+        SerialConnection.shared.selectedPort = selectedPort
+        
+        UserDefaults.standard.set(selectedPort?.path, forKey: SelectedPortPathKey)
     }
 
 
