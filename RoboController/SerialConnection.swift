@@ -23,7 +23,7 @@ class SerialConnection {
         }
         didSet {
             if let selectedPort = selectedPort {
-                selectedPort.baudRate = 115200
+                selectedPort.baudRate = 9600
                 
                 DispatchQueue.global(qos: .userInitiated).async {
                     selectedPort.open()
