@@ -36,6 +36,10 @@ class SerialConnection {
         }
     }
     
+    var isConnected: Bool {
+        return selectedPort?.isOpen ?? false
+    }
+    
     func send(message: String) -> Bool {
         if let data = message.data(using: .utf8) {
             return selectedPort?.send(data) ?? false
