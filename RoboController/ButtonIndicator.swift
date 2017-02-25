@@ -2,8 +2,8 @@
 //  ButtonIndicator.swift
 //  RoboController
 //
-//  Created by Anthony Picciano on 1/15/17.
-//  Copyright © 2017 Anthony Picciano. All rights reserved.
+//  Created by Oscar Picciano on 1/15/17.
+//  Copyright © 2017 Oscar Picciano. All rights reserved.
 //
 
 import Cocoa

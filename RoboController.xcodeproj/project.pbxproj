@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AF1207E21E2BE26E00635715 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = AF1207E11E2BE26E00635715 /* Podfile */; };
 		AF1207E41E2BEC5200635715 /* SerialConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1207E31E2BEC5200635715 /* SerialConnection.swift */; };
 		AF4D245C1E2C2A3800266375 /* RoboController.pcvd in Resources */ = {isa = PBXBuildFile; fileRef = AF4D245A1E2C2A3800266375 /* RoboController.pcvd */; };
 		AF4D245D1E2C2A3800266375 /* RoboControllerStyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4D245B1E2C2A3800266375 /* RoboControllerStyleKit.swift */; };
@@ -22,7 +21,6 @@
 /* Begin PBXFileReference section */
 		49692667172160212C78C15B /* Pods-RoboController.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RoboController.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RoboController/Pods-RoboController.debug.xcconfig"; sourceTree = "<group>"; };
 		7026A721AFD7B745046EB78D /* Pods_RoboController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RoboController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		AF1207E11E2BE26E00635715 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		AF1207E31E2BEC5200635715 /* SerialConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SerialConnection.swift; sourceTree = "<group>"; };
 		AF4D245A1E2C2A3800266375 /* RoboController.pcvd */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = RoboController.pcvd; sourceTree = "<group>"; };
 		AF4D245B1E2C2A3800266375 /* RoboControllerStyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoboControllerStyleKit.swift; sourceTree = "<group>"; };
@@ -68,7 +66,6 @@
 		AF7010411E2AEE690031C0BC = {
 			isa = PBXGroup;
 			children = (
-				AF1207E11E2BE26E00635715 /* Podfile */,
 				AF70104C1E2AEE690031C0BC /* RoboController */,
 				AF70104B1E2AEE690031C0BC /* Products */,
 				EFFAF2282ABD11D5E102E152 /* Pods */,
@@ -172,7 +169,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				AF4D245C1E2C2A3800266375 /* RoboController.pcvd in Resources */,
-				AF1207E21E2BE26E00635715 /* Podfile in Resources */,
 				AF7010521E2AEE690031C0BC /* Assets.xcassets in Resources */,
 				AF7010551E2AEE6A0031C0BC /* Main.storyboard in Resources */,
 			);

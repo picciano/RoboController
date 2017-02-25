@@ -2,8 +2,8 @@
 //  AppDelegate.swift
 //  RoboController
 //
-//  Created by Anthony Picciano on 1/14/17.
-//  Copyright © 2017 Anthony Picciano. All rights reserved.
+//  Created by Oscar Picciano on 1/14/17.
+//  Copyright © 2017 Oscar Picciano. All rights reserved.
 //
 
 import Cocoa
@@ -31,10 +31,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         listSerialPorts()
-    }
-
-    func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
     }
     
     func listSerialPorts() {
@@ -68,7 +64,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         UserDefaults.standard.set(selectedPort?.path, forKey: SelectedPortPathKey)
     }
-
 
 }
 

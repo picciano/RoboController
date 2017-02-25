@@ -2,8 +2,8 @@
 //  ViewController.swift
 //  RoboController
 //
-//  Created by Anthony Picciano on 1/14/17.
-//  Copyright © 2017 Anthony Picciano. All rights reserved.
+//  Created by Oscar Picciano on 1/14/17.
+//  Copyright © 2017 Oscar Picciano. All rights reserved.
 //
 
 import Cocoa
@@ -41,12 +41,6 @@ class ViewController: NSViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(didDisconnectHandler(notification:)), name: SerialConnectionDidDisconnect, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(leftBumperHitHandler(notification:)), name: LeftBumperHit, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(rightBumperHitHandler(notification:)), name: RightBumperHit, object: nil)
-    }
-
-    override var representedObject: Any? {
-        didSet {
-        // Update the view, if already loaded.
-        }
     }
     
     func foundConnector(notification: Notification) {
@@ -218,7 +212,7 @@ class ViewController: NSViewController {
     }
     
     func showWarning() {
-        
+        debugPrint("Unable to send command.")
     }
 
 }
