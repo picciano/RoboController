@@ -21,6 +21,9 @@ class ViewController: NSViewController {
     @IBOutlet weak var yButton: ButtonIndicator!
     @IBOutlet weak var serialConnectionWarningLabel: NSTextField!
     
+    @IBOutlet weak var leftBumperLabel: NSTextField!
+    @IBOutlet weak var rightBumperLabel: NSTextField!
+    
     var connectedGameController: GCController?
     var motorValuesChanged = false
     var skippedLastTimerEvent = false
@@ -28,12 +31,16 @@ class ViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        hideBumperLabels()
 
         // Do any additional setup after loading the view.
         NotificationCenter.default.addObserver(self, selector: #selector(foundConnector(notification:)), name: NSNotification.Name.GCControllerDidConnect, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(lostConnector(notification:)), name: NSNotification.Name.GCControllerDidDisconnect, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didConnectHandler(notification:)), name: SerialConnectionDidConnect, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didDisconnectHandler(notification:)), name: SerialConnectionDidDisconnect, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(leftBumperHitHandler(notification:)), name: LeftBumperHit, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(rightBumperHitHandler(notification:)), name: RightBumperHit, object: nil)
     }
 
     override var representedObject: Any? {
@@ -102,22 +109,44 @@ class ViewController: NSViewController {
             profile.buttonY.pressedChangedHandler = { (button, value, pressed) in
                 self.yButton.on = pressed
                 
-                if pressed {}
-            }
-            
-            profile.leftTrigger.pressedChangedHandler = { (button, value, pressed) in
                 if pressed {
-                    debugPrint("Brakes")
-                    let result = SerialConnection.shared.send(message: "stop\n")
-                    debugPrint(result ? "Message sent." : "Send failed.")
+                    _ = SerialConnection.shared.send(message: "acc\n")
                 }
             }
             
-            profile.rightTrigger.pressedChangedHandler = { (button, value, pressed) in
+            profile.leftShoulder.pressedChangedHandler = { (button, value, pressed) in
                 if pressed {
-                    debugPrint("Firestick activated!!!")
-                    let result = SerialConnection.shared.send(message: "move 1\n")
-                    debugPrint(result ? "Message sent." : "Send failed.")
+                    _ = SerialConnection.shared.send(message: "stop\n")
+                }
+            }
+            
+            profile.leftTrigger.valueChangedHandler = { (button, value, pressed) in
+                let value = Int(button.value * 255.0)
+                
+                self.leftThrustLabel.stringValue = "\(-value)"
+                self.leftThrustSlider.intValue = Int32(-value)
+                self.rightThrustLabel.stringValue = "\(-value)"
+                self.rightThrustSlider.intValue = Int32(-value)
+                
+                self.motorValuesChanged = true
+                
+                if self.skippedLastTimerEvent || value == 0 {
+                    self.sendMotorSpeed()
+                }
+            }
+            
+            profile.rightTrigger.valueChangedHandler = { (button, value, pressed) in
+                let value = Int(button.value * 255.0)
+                
+                self.leftThrustLabel.stringValue = "\(value)"
+                self.leftThrustSlider.intValue = Int32(value)
+                self.rightThrustLabel.stringValue = "\(value)"
+                self.rightThrustSlider.intValue = Int32(value)
+                
+                self.motorValuesChanged = true
+                
+                if self.skippedLastTimerEvent || value == 0 {
+                    self.sendMotorSpeed()
                 }
             }
         }
@@ -136,8 +165,14 @@ class ViewController: NSViewController {
         skippedLastTimerEvent = false
         
         if let profile = connectedGameController?.extendedGamepad {
-            let leftValue = Int(profile.leftThumbstick.yAxis.value * 255.0)
-            let rightValue = Int(profile.rightThumbstick.yAxis.value * 255.0)
+            var leftValue = Int(profile.leftThumbstick.yAxis.value * 255.0)
+            var rightValue = Int(profile.rightThumbstick.yAxis.value * 255.0)
+            
+            leftValue = leftValue + Int(profile.rightTrigger.value * 255.0)
+            rightValue = rightValue + Int(profile.rightTrigger.value * 230.0)
+            
+            leftValue = leftValue + Int(profile.leftTrigger.value * -255.0)
+            rightValue = rightValue + Int(profile.leftTrigger.value * -238.0)
             
             motorValuesChanged = false
             
@@ -154,7 +189,7 @@ class ViewController: NSViewController {
     func didConnectHandler(notification: Notification) {
         serialConnectionWarningLabel.isHidden = true
         
-        timer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { timer in
+        timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
             self.sendMotorSpeed()
         }
     }
@@ -163,6 +198,23 @@ class ViewController: NSViewController {
         serialConnectionWarningLabel.isHidden = false
         
         timer?.invalidate()
+    }
+    
+    func leftBumperHitHandler(notification: Notification) {
+        leftBumperLabel.isHidden = false
+        NSObject.cancelPreviousPerformRequests(withTarget: self)
+        self.perform(#selector(hideBumperLabels), with: nil, afterDelay: 1.0)
+    }
+    
+    func rightBumperHitHandler(notification: Notification) {
+        rightBumperLabel.isHidden = false
+        NSObject.cancelPreviousPerformRequests(withTarget: self)
+        self.perform(#selector(hideBumperLabels), with: nil, afterDelay: 1.0)
+    }
+    
+    func hideBumperLabels() {
+        leftBumperLabel.isHidden = true
+        rightBumperLabel.isHidden = true
     }
     
     func showWarning() {

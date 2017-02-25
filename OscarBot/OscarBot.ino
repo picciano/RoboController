@@ -29,8 +29,14 @@ RedBotSoftwareSerial XBee;
 const int buzzerPin = 9;
 const int buttonPin = 12;
 const int ledPin = 13;
+
+int lBumperState;  // state variable to store the bumper value
+int rBumperState;  // state variable to store the bumper value
+
 RedBotMotors motors;
 RedBotAccel accelerometer;
+RedBotBumper lBumper = RedBotBumper(3);  // initialzes bumper object on pin 3
+RedBotBumper rBumper = RedBotBumper(11); // initialzes bumper object on pin 11
 
 String input;
  
@@ -49,8 +55,11 @@ void setup() {
 }
 
 void loop() {
+  checkBumpers();
+  
   // if there's any serial available, read it:
   while (XBee.available()) {
+    
     delay(3);  //delay to allow buffer to fill 
     if (XBee.available() > 0) {
       char c = XBee.read();  //gets one byte from serial buffer
@@ -68,6 +77,21 @@ void loop() {
         input += c;
       }
     } 
+  }
+}
+
+void checkBumpers() {
+  lBumperState = lBumper.read();  // default INPUT state is HIGH, it is LOW when bumped
+  rBumperState = rBumper.read();  // default INPUT state is HIGH, it is LOW when bumped
+
+  if (lBumperState == LOW) // left side is bumped/
+  { 
+    XBee.println("Left bumper hit");
+  }
+
+  if (rBumperState == LOW) // right side is bumped/
+  { 
+    XBee.println("Right bumper hit");
   }
 }
 

@@ -11,8 +11,10 @@ import ORSSerial
 
 let SerialConnectionDidConnect = NSNotification.Name("SerialConnectionDidConnect")
 let SerialConnectionDidDisconnect = NSNotification.Name("SerialConnectionDidDisconnect")
+let LeftBumperHit = NSNotification.Name("LeftBumperHit")
+let RightBumperHit = NSNotification.Name("RightBumperHit")
 
-class SerialConnection {
+class SerialConnection: NSObject, ORSSerialPortDelegate {
     
     static let shared = SerialConnection()
     
@@ -27,6 +29,8 @@ class SerialConnection {
                 
                 DispatchQueue.global(qos: .userInitiated).async {
                     selectedPort.open()
+                    
+                    selectedPort.delegate = self
                     
                     DispatchQueue.main.async(execute: { () -> Void in
                         NotificationCenter.default.post(name: SerialConnectionDidConnect, object: self)
@@ -46,5 +50,34 @@ class SerialConnection {
         }
         
         return false
+    }
+    
+    func serialPortWasRemoved(fromSystem serialPort: ORSSerialPort) {
+        selectedPort?.close()
+        NotificationCenter.default.post(name: SerialConnectionDidDisconnect, object: self)
+    }
+    
+    var buffer: String = String()
+    
+    func serialPort(_ serialPort: ORSSerialPort, didReceive data: Data) {
+        if let string = NSString(data: data, encoding: String.Encoding.utf8.rawValue) as? String {
+            
+            buffer.append(string)
+            
+            if string.hasSuffix("\r\n") {
+                
+                if buffer.hasPrefix("Left bumper") {
+                    NotificationCenter.default.post(name: LeftBumperHit, object: self)
+                } else if buffer.hasPrefix("Right bumper") {
+                    NotificationCenter.default.post(name: RightBumperHit, object: self)
+                } else {
+                    print(buffer)
+                }
+                buffer = String()
+            }
+            
+        }
+        
+        
     }
 }
